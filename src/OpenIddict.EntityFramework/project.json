@@ -1,5 +1,5 @@
-﻿{
-  "version": "1.0.0-alpha2-*",
+{
+  "version": "1.0.0-alpha2-0013",
 
   "description": "Entity Framework adapter for OpenIddict.",
   "authors": [ "Kévin Chalet" ],
@@ -33,19 +33,18 @@
   },
 
   "dependencies": {
-    "JetBrains.Annotations": { "type": "build", "version": "10.1.4" },
+    "JetBrains.Annotations": {
+      "type": "build",
+      "version": "10.1.5"
+    },
+    "NETStandard.Library": "1.6.0",
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
-    "OpenIddict.Core": { "target": "project" }
+    "OpenIddict.Core": "1.0.0-alpha2-*"
   },
 
   "frameworks": {
-    "net451": { },
-
-    "netstandard1.4": {
-      "imports": [
-        "dotnet5.5",
-        "portable-net451+win8"
-      ]
+    "netstandard1.6": {
+      "imports": "dnxcore50"
     }
   }
 }
