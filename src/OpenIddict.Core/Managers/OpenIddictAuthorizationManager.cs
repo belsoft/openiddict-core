@@ -6,7 +6,6 @@
 
 using System;
 using System.Threading;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -18,9 +17,9 @@ namespace OpenIddict {
     /// <typeparam name="TAuthorization">The type of the Authorization entity.</typeparam>
     public class OpenIddictAuthorizationManager<TAuthorization> where TAuthorization : class {
         public OpenIddictAuthorizationManager(
-            [NotNull] IServiceProvider services,
-            [NotNull] IOpenIddictAuthorizationStore<TAuthorization> store,
-            [NotNull] ILogger<OpenIddictAuthorizationManager<TAuthorization>> logger) {
+            IServiceProvider services,
+            IOpenIddictAuthorizationStore<TAuthorization> store,
+            ILogger<OpenIddictAuthorizationManager<TAuthorization>> logger) {
             Context = services?.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
             Logger = logger;
             Store = store;

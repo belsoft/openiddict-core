@@ -7,7 +7,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 
 namespace OpenIddict.Infrastructure {
@@ -21,8 +20,8 @@ namespace OpenIddict.Infrastructure {
         /// <param name="type">The claim type.</param>
         /// <returns>The claim value, or <c>null</c> if it cannot be found.</returns>
         public static async Task<string> FindClaimAsync<TUser>(
-            [NotNull] this UserManager<TUser> manager,
-            [NotNull] TUser user, [NotNull] string type) where TUser : class {
+            this UserManager<TUser> manager,
+            TUser user, string type) where TUser : class {
             if (manager == null) {
                 throw new ArgumentNullException(nameof(manager));
             }
@@ -50,8 +49,8 @@ namespace OpenIddict.Infrastructure {
         /// <param name="application">The application.</param>
         /// <returns><c>true</c> if the application is a confidential client, <c>false</c> otherwise.</returns>
         public static async Task<bool> IsConfidentialAsync<TApplication>(
-            [NotNull] this OpenIddictApplicationManager<TApplication> manager,
-            [NotNull] TApplication application) where TApplication : class {
+            this OpenIddictApplicationManager<TApplication> manager,
+            TApplication application) where TApplication : class {
             if (manager == null) {
                 throw new ArgumentNullException(nameof(manager));
             }
@@ -73,8 +72,8 @@ namespace OpenIddict.Infrastructure {
         /// <param name="application">The application.</param>
         /// <returns><c>true</c> if the application is a public client, <c>false</c> otherwise.</returns>
         public static async Task<bool> IsPublicAsync<TApplication>(
-            [NotNull] this OpenIddictApplicationManager<TApplication> manager,
-            [NotNull] TApplication application) where TApplication : class {
+            this OpenIddictApplicationManager<TApplication> manager,
+            TApplication application) where TApplication : class {
             if (manager == null) {
                 throw new ArgumentNullException(nameof(manager));
             }

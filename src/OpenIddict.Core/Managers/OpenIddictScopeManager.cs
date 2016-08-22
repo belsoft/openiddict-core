@@ -6,7 +6,6 @@
 
 using System;
 using System.Threading;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -18,9 +17,9 @@ namespace OpenIddict {
     /// <typeparam name="TScope">The type of the Scope entity.</typeparam>
     public class OpenIddictScopeManager<TScope> where TScope : class {
         public OpenIddictScopeManager(
-            [NotNull] IServiceProvider services,
-            [NotNull] IOpenIddictScopeStore<TScope> store,
-            [NotNull] ILogger<OpenIddictAuthorizationManager<TScope>> logger) {
+            IServiceProvider services,
+            IOpenIddictScopeStore<TScope> store,
+            ILogger<OpenIddictAuthorizationManager<TScope>> logger) {
             Context = services?.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
             Logger = logger;
             Store = store;

@@ -6,7 +6,6 @@
 
 using System;
 using System.Diagnostics;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 
 namespace OpenIddict {
@@ -22,8 +21,8 @@ namespace OpenIddict {
         /// <param name="position">The position of the module in the ASP.NET Core pipeline.</param>
         /// <param name="registration">The delegate used to register the module in the pipeline.</param>
         public OpenIddictModule(
-            [NotNull] string name, int position,
-            [NotNull] Action<IApplicationBuilder> registration) {
+            string name, int position,
+            Action<IApplicationBuilder> registration) {
             Name = name;
             Position = position;
             Registration = registration;
@@ -33,7 +32,7 @@ namespace OpenIddict {
         /// Initializes a new OpenIddict module.
         /// </summary>
         /// <param name="registration">The delegate used to register the module in the pipeline.</param>
-        public OpenIddictModule([NotNull] Action<IApplicationBuilder> registration) {
+        public OpenIddictModule(Action<IApplicationBuilder> registration) {
             Registration = registration;
         }
 

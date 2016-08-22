@@ -5,14 +5,15 @@
  */
 
 using System;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using OpenIddict;
 
-namespace Microsoft.AspNetCore.Builder {
-    public static class OpenIddictExtensions {
+namespace Microsoft.AspNetCore.Builder
+{
+    public static class OpenIddictExtensions
+    {
         /// <summary>
         /// Registers the default OpenIddict services in the DI container,
         /// including the Entity Framework stores and the built-in entities.
@@ -26,9 +27,11 @@ namespace Microsoft.AspNetCore.Builder {
         /// consider adding the MVC module or creating your own authorization controller.
         /// </remarks>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
-        public static OpenIddictBuilder AddOpenIddict<TContext>([NotNull] this IServiceCollection services)
-            where TContext : DbContext {
-            if (services == null) {
+        public static OpenIddictBuilder AddOpenIddict<TContext>(this IServiceCollection services)
+            where TContext : DbContext
+        {
+            if (services == null)
+            {
                 throw new ArgumentNullException(nameof(services));
             }
 
@@ -49,10 +52,12 @@ namespace Microsoft.AspNetCore.Builder {
         /// consider adding the MVC module or creating your own authorization controller.
         /// </remarks>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
-        public static OpenIddictBuilder AddOpenIddict<TUser, TContext>([NotNull] this IServiceCollection services)
+        public static OpenIddictBuilder AddOpenIddict<TUser, TContext>(this IServiceCollection services)
             where TUser : OpenIddictUser
-            where TContext : DbContext {
-            if (services == null) {
+            where TContext : DbContext
+        {
+            if (services == null)
+            {
                 throw new ArgumentNullException(nameof(services));
             }
 
@@ -77,11 +82,13 @@ namespace Microsoft.AspNetCore.Builder {
         /// consider adding the MVC module or creating your own authorization controller.
         /// </remarks>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
-        public static OpenIddictBuilder AddOpenIddict<TUser, TRole, TContext>([NotNull] this IServiceCollection services)
+        public static OpenIddictBuilder AddOpenIddict<TUser, TRole, TContext>(this IServiceCollection services)
             where TUser : OpenIddictUser
             where TRole : IdentityRole
-            where TContext : DbContext {
-            if (services == null) {
+            where TContext : DbContext
+        {
+            if (services == null)
+            {
                 throw new ArgumentNullException(nameof(services));
             }
 
@@ -107,12 +114,14 @@ namespace Microsoft.AspNetCore.Builder {
         /// consider adding the MVC module or creating your own authorization controller.
         /// </remarks>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
-        public static OpenIddictBuilder AddOpenIddict<TUser, TRole, TContext, TKey>([NotNull] this IServiceCollection services)
+        public static OpenIddictBuilder AddOpenIddict<TUser, TRole, TContext, TKey>(this IServiceCollection services)
             where TUser : OpenIddictUser<TKey>
             where TRole : IdentityRole<TKey>
             where TContext : DbContext
-            where TKey : IEquatable<TKey> {
-            if (services == null) {
+            where TKey : IEquatable<TKey>
+        {
+            if (services == null)
+            {
                 throw new ArgumentNullException(nameof(services));
             }
 
@@ -143,7 +152,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </remarks>
         /// <returns>The <see cref="IServiceCollection"/>.</returns>
         public static OpenIddictBuilder AddOpenIddict<TUser, TRole, TApplication, TAuthorization, TScope, TToken, TContext, TKey>(
-            [NotNull] this IServiceCollection services)
+            this IServiceCollection services)
             where TUser : OpenIddictUser<TKey, TAuthorization, TToken>
             where TRole : IdentityRole<TKey>
             where TApplication : OpenIddictApplication<TKey, TToken>
@@ -151,8 +160,10 @@ namespace Microsoft.AspNetCore.Builder {
             where TScope : OpenIddictScope<TKey>
             where TToken : OpenIddictToken<TKey>
             where TContext : DbContext
-            where TKey : IEquatable<TKey> {
-            if (services == null) {
+            where TKey : IEquatable<TKey>
+        {
+            if (services == null)
+            {
                 throw new ArgumentNullException(nameof(services));
             }
 

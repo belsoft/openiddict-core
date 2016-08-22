@@ -12,7 +12,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Server;
-using JetBrains.Annotations;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -27,7 +27,7 @@ using Newtonsoft.Json.Bson;
 namespace OpenIddict.Infrastructure {
     public partial class OpenIddictProvider<TUser, TApplication, TAuthorization, TScope, TToken> : OpenIdConnectServerProvider
         where TUser : class where TApplication : class where TAuthorization : class where TScope : class where TToken : class {
-        public override async Task ExtractAuthorizationRequest([NotNull] ExtractAuthorizationRequestContext context) {
+        public override async Task ExtractAuthorizationRequest(ExtractAuthorizationRequestContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             // Reject requests using the unsupported request parameter.
@@ -85,7 +85,7 @@ namespace OpenIddict.Infrastructure {
             }
         }
 
-        public override async Task ValidateAuthorizationRequest([NotNull] ValidateAuthorizationRequestContext context) {
+        public override async Task ValidateAuthorizationRequest(ValidateAuthorizationRequestContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             // Note: the OpenID Connect server middleware supports authorization code, implicit, hybrid,
@@ -343,7 +343,7 @@ namespace OpenIddict.Infrastructure {
             context.Validate();
         }
 
-        public override async Task HandleAuthorizationRequest([NotNull] HandleAuthorizationRequestContext context) {
+        public override async Task HandleAuthorizationRequest(HandleAuthorizationRequestContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             if (string.Equals(context.Request.Prompt, "none", StringComparison.Ordinal)) {
@@ -438,7 +438,7 @@ namespace OpenIddict.Infrastructure {
             context.SkipToNextMiddleware();
         }
 
-        public override async Task ApplyAuthorizationResponse([NotNull] ApplyAuthorizationResponseContext context) {
+        public override async Task ApplyAuthorizationResponse(ApplyAuthorizationResponseContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             // Remove the authorization request from the distributed cache.

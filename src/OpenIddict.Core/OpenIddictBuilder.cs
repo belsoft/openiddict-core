@@ -12,7 +12,6 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using AspNet.Security.OpenIdConnect.Extensions;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -79,7 +78,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// <param name="configuration">The delegate used to configure the OpenIddict options.</param>
         /// <remarks>This extension can be safely called multiple times.</remarks>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
-        public virtual OpenIddictBuilder Configure([NotNull] Action<OpenIddictOptions> configuration) {
+        public virtual OpenIddictBuilder Configure(Action<OpenIddictOptions> configuration) {
             if (configuration == null) {
                 throw new ArgumentNullException(nameof(configuration));
             }
@@ -258,8 +257,8 @@ namespace Microsoft.AspNetCore.Builder {
         /// <param name="registration">The delegate used to register the module in the ASP.NET Core pipeline.</param>
         /// <returns>The<see cref="OpenIddictBuilder"/>.</returns>
         public virtual OpenIddictBuilder AddModule(
-            [NotNull] string name, int position,
-            [NotNull] Action<IApplicationBuilder> registration) {
+            string name, int position,
+            Action<IApplicationBuilder> registration) {
             if (string.IsNullOrEmpty(name)) {
                 throw new ArgumentNullException(nameof(name));
             }
@@ -293,7 +292,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </summary>
         /// <param name="certificate">The certificate used to sign the security tokens issued by the server.</param>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
-        public virtual OpenIddictBuilder AddSigningCertificate([NotNull] X509Certificate2 certificate) {
+        public virtual OpenIddictBuilder AddSigningCertificate(X509Certificate2 certificate) {
             if (certificate == null) {
                 throw new ArgumentNullException(nameof(certificate));
             }
@@ -314,7 +313,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// <param name="password">The password used to open the certificate.</param>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
         public virtual OpenIddictBuilder AddSigningCertificate(
-            [NotNull] Assembly assembly, [NotNull] string resource, [NotNull] string password) {
+            Assembly assembly, string resource, string password) {
             if (assembly == null) {
                 throw new ArgumentNullException(nameof(assembly));
             }
@@ -337,7 +336,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// <param name="stream">The stream containing the certificate.</param>
         /// <param name="password">The password used to open the certificate.</param>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
-        public virtual OpenIddictBuilder AddSigningCertificate([NotNull] Stream stream, [NotNull] string password) {
+        public virtual OpenIddictBuilder AddSigningCertificate(Stream stream, string password) {
             if (stream == null) {
                 throw new ArgumentNullException(nameof(stream));
             }
@@ -361,7 +360,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </param>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
         public virtual OpenIddictBuilder AddSigningCertificate(
-            [NotNull] Stream stream, [NotNull] string password, X509KeyStorageFlags flags) {
+            Stream stream, string password, X509KeyStorageFlags flags) {
             if (stream == null) {
                 throw new ArgumentNullException(nameof(stream));
             }
@@ -379,7 +378,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </summary>
         /// <param name="thumbprint">The thumbprint of the certificate used to identify it in the X.509 store.</param>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
-        public virtual OpenIddictBuilder AddSigningCertificate([NotNull] string thumbprint) {
+        public virtual OpenIddictBuilder AddSigningCertificate(string thumbprint) {
             if (string.IsNullOrEmpty(thumbprint)) {
                 throw new ArgumentNullException(nameof(thumbprint));
             }
@@ -396,7 +395,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// <param name="location">The location of the X.509 store.</param>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
         public virtual OpenIddictBuilder AddSigningCertificate(
-            [NotNull] string thumbprint, StoreName name, StoreLocation location) {
+            string thumbprint, StoreName name, StoreLocation location) {
             if (string.IsNullOrEmpty(thumbprint)) {
                 throw new ArgumentNullException(nameof(thumbprint));
             }
@@ -410,7 +409,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </summary>
         /// <param name="key">The security key.</param>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
-        public virtual OpenIddictBuilder AddSigningKey([NotNull] SecurityKey key) {
+        public virtual OpenIddictBuilder AddSigningKey(SecurityKey key) {
             if (key == null) {
                 throw new ArgumentNullException(nameof(key));
             }

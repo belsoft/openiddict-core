@@ -9,14 +9,13 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Server;
-using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace OpenIddict.Infrastructure {
     public partial class OpenIddictProvider<TUser, TApplication, TAuthorization, TScope, TToken> : OpenIdConnectServerProvider
         where TUser : class where TApplication : class where TAuthorization : class where TScope : class where TToken : class {
-        public override async Task ValidateRevocationRequest([NotNull] ValidateRevocationRequestContext context) {
+        public override async Task ValidateRevocationRequest(ValidateRevocationRequestContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             // When token_type_hint is specified, reject the request if it doesn't correspond to a revocable token.
@@ -96,7 +95,7 @@ namespace OpenIddict.Infrastructure {
             context.Validate();
         }
 
-        public override async Task HandleRevocationRequest([NotNull] HandleRevocationRequestContext context) {
+        public override async Task HandleRevocationRequest(HandleRevocationRequestContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             Debug.Assert(context.Ticket != null, "The authentication ticket shouldn't be null.");

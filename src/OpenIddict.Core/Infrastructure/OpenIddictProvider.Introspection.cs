@@ -9,14 +9,13 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Server;
-using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace OpenIddict.Infrastructure {
     public partial class OpenIddictProvider<TUser, TApplication, TAuthorization, TScope, TToken> : OpenIdConnectServerProvider
         where TUser : class where TApplication : class where TAuthorization : class where TScope : class where TToken : class {
-        public override async Task ValidateIntrospectionRequest([NotNull] ValidateIntrospectionRequestContext context) {
+        public override async Task ValidateIntrospectionRequest(ValidateIntrospectionRequestContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             // Note: the OpenID Connect server middleware supports both GET and POST
@@ -81,7 +80,7 @@ namespace OpenIddict.Infrastructure {
             context.Validate();
         }
 
-        public override async Task HandleIntrospectionRequest([NotNull] HandleIntrospectionRequestContext context) {
+        public override async Task HandleIntrospectionRequest(HandleIntrospectionRequestContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             Debug.Assert(context.Ticket != null, "The authentication ticket shouldn't be null.");

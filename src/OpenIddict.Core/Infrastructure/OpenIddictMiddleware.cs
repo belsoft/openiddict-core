@@ -3,7 +3,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Extensions;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -17,11 +16,11 @@ namespace OpenIddict.Infrastructure {
         where TAuthorization : class where TScope : class where TToken : class {
         private readonly RequestDelegate next;
 
-        public OpenIddictMiddleware([NotNull] RequestDelegate next) {
+        public OpenIddictMiddleware(RequestDelegate next) {
             this.next = next;
         }
 
-        public async Task Invoke([NotNull] HttpContext context) {
+        public async Task Invoke(HttpContext context) {
             // Invoke the rest of the pipeline to allow handling
             // authorization, logout or token requests in user code.
             await next(context);

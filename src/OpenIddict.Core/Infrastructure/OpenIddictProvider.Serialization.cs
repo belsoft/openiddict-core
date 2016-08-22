@@ -10,13 +10,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Server;
-using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace OpenIddict.Infrastructure {
     public partial class OpenIddictProvider<TUser, TApplication, TAuthorization, TScope, TToken> : OpenIdConnectServerProvider
         where TUser : class where TApplication : class where TAuthorization : class where TScope : class where TToken : class {
-        public override async Task SerializeAuthorizationCode([NotNull] SerializeAuthorizationCodeContext context) {
+        public override async Task SerializeAuthorizationCode(SerializeAuthorizationCodeContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             Debug.Assert(context.Request.IsAuthorizationRequest(), "The request should be an authorization request.");
@@ -49,7 +48,7 @@ namespace OpenIddict.Infrastructure {
             context.Ticket.SetTicketId(identifier);
         }
 
-        public override async Task SerializeRefreshToken([NotNull] SerializeRefreshTokenContext context) {
+        public override async Task SerializeRefreshToken(SerializeRefreshTokenContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             Debug.Assert(context.Request.IsTokenRequest(), "The request should be a token request.");

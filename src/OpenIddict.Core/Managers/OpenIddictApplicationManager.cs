@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoHelper;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -21,9 +20,9 @@ namespace OpenIddict {
     /// <typeparam name="TApplication">The type of the Application entity.</typeparam>
     public class OpenIddictApplicationManager<TApplication> where TApplication : class {
         public OpenIddictApplicationManager(
-            [NotNull] IServiceProvider services,
-            [NotNull] IOpenIddictApplicationStore<TApplication> store,
-            [NotNull] ILogger<OpenIddictApplicationManager<TApplication>> logger) {
+            IServiceProvider services,
+            IOpenIddictApplicationStore<TApplication> store,
+            ILogger<OpenIddictApplicationManager<TApplication>> logger) {
             Context = services?.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
             Store = store;
             Logger = logger;

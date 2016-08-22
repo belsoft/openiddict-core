@@ -8,13 +8,12 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Server;
-using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace OpenIddict.Infrastructure {
     public partial class OpenIddictProvider<TUser, TApplication, TAuthorization, TScope, TToken> : OpenIdConnectServerProvider
         where TUser : class where TApplication : class where TAuthorization : class where TScope : class where TToken : class {
-        public override Task HandleConfigurationRequest([NotNull] HandleConfigurationRequestContext context) {
+        public override Task HandleConfigurationRequest(HandleConfigurationRequestContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             // Note: though it's natively supported by the OpenID Connect server middleware,

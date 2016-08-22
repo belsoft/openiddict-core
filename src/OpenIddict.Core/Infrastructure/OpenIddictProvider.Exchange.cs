@@ -10,7 +10,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Server;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Authentication;
@@ -20,7 +19,7 @@ using Microsoft.Extensions.Logging;
 namespace OpenIddict.Infrastructure {
     public partial class OpenIddictProvider<TUser, TApplication, TAuthorization, TScope, TToken> : OpenIdConnectServerProvider
         where TUser : class where TApplication : class where TAuthorization : class where TScope : class where TToken : class {
-        public override async Task ValidateTokenRequest([NotNull] ValidateTokenRequestContext context) {
+        public override async Task ValidateTokenRequest(ValidateTokenRequestContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             // Note: the OpenID Connect server middleware supports authorization code, refresh token, client credentials,
@@ -219,7 +218,7 @@ namespace OpenIddict.Infrastructure {
             context.Validate();
         }
 
-        public override async Task HandleTokenRequest([NotNull] HandleTokenRequestContext context) {
+        public override async Task HandleTokenRequest(HandleTokenRequestContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             Debug.Assert(context.Request.IsAuthorizationCodeGrantType() ||

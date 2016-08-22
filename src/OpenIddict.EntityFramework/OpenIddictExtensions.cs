@@ -6,7 +6,6 @@
 
 using System;
 using System.Diagnostics;
-using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using OpenIddict;
@@ -18,7 +17,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </summary>
         /// <param name="builder">The services builder used by OpenIddict to register new services.</param>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
-        public static OpenIddictBuilder AddEntityFramework<TContext>([NotNull] this OpenIddictBuilder builder)
+        public static OpenIddictBuilder AddEntityFramework<TContext>(this OpenIddictBuilder builder)
             where TContext : DbContext {
             return builder.AddEntityFramework<TContext, string>();
         }
@@ -28,7 +27,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </summary>
         /// <param name="builder">The services builder used by OpenIddict to register new services.</param>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
-        public static OpenIddictBuilder AddEntityFramework<TContext, TKey>([NotNull] this OpenIddictBuilder builder)
+        public static OpenIddictBuilder AddEntityFramework<TContext, TKey>(this OpenIddictBuilder builder)
             where TContext : DbContext
             where TKey : IEquatable<TKey> {
             if (builder == null) {

@@ -12,7 +12,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Server;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -27,15 +26,15 @@ namespace OpenIddict {
     /// <typeparam name="TUser">The type of the User entity.</typeparam>
     public class OpenIddictUserManager<TUser> : UserManager<TUser> where TUser : class {
         public OpenIddictUserManager(
-            [NotNull] IServiceProvider services,
-            [NotNull] IOpenIddictUserStore<TUser> store,
-            [NotNull] IOptions<IdentityOptions> options,
-            [NotNull] ILogger<OpenIddictUserManager<TUser>> logger,
-            [NotNull] IPasswordHasher<TUser> hasher,
-            [NotNull] IEnumerable<IUserValidator<TUser>> userValidators,
-            [NotNull] IEnumerable<IPasswordValidator<TUser>> passwordValidators,
-            [NotNull] ILookupNormalizer keyNormalizer,
-            [NotNull] IdentityErrorDescriber errors)
+            IServiceProvider services,
+            IOpenIddictUserStore<TUser> store,
+            IOptions<IdentityOptions> options,
+            ILogger<OpenIddictUserManager<TUser>> logger,
+            IPasswordHasher<TUser> hasher,
+            IEnumerable<IUserValidator<TUser>> userValidators,
+            IEnumerable<IPasswordValidator<TUser>> passwordValidators,
+            ILookupNormalizer keyNormalizer,
+            IdentityErrorDescriber errors)
             : base(store, options, hasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger) {
             Context = services?.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
             Logger = logger;

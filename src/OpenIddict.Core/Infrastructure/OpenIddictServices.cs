@@ -5,7 +5,6 @@
  */
 
 using System;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +18,7 @@ namespace OpenIddict.Infrastructure {
     public class OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>
         where TUser : class where TApplication : class where TAuthorization : class
         where TScope : class where TToken : class {
-        public OpenIddictServices([NotNull] IServiceProvider services) {
+        public OpenIddictServices(IServiceProvider services) {
             Services = services;
         }
 

@@ -9,7 +9,6 @@ using System.IO;
 using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Server;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Caching.Distributed;
@@ -21,7 +20,7 @@ using Newtonsoft.Json.Bson;
 namespace OpenIddict.Infrastructure {
     public partial class OpenIddictProvider<TUser, TApplication, TAuthorization, TScope, TToken> : OpenIdConnectServerProvider
         where TUser : class where TApplication : class where TAuthorization : class where TScope : class where TToken : class {
-        public override async Task ExtractLogoutRequest([NotNull] ExtractLogoutRequestContext context) {
+        public override async Task ExtractLogoutRequest(ExtractLogoutRequestContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             // If a request_id parameter can be found in the logout request,
@@ -55,7 +54,7 @@ namespace OpenIddict.Infrastructure {
             }
         }
 
-        public override async Task ValidateLogoutRequest([NotNull] ValidateLogoutRequestContext context) {
+        public override async Task ValidateLogoutRequest(ValidateLogoutRequestContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             // Skip validation if the optional post_logout_redirect_uri
@@ -85,7 +84,7 @@ namespace OpenIddict.Infrastructure {
             context.Validate();
         }
 
-        public override async Task HandleLogoutRequest([NotNull] HandleLogoutRequestContext context) {
+        public override async Task HandleLogoutRequest(HandleLogoutRequestContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             // If no request_id parameter can be found in the current request, assume the OpenID Connect
@@ -129,7 +128,7 @@ namespace OpenIddict.Infrastructure {
             }
         }
 
-        public override async Task ApplyLogoutResponse([NotNull] ApplyLogoutResponseContext context) {
+        public override async Task ApplyLogoutResponse(ApplyLogoutResponseContext context) {
             var services = context.HttpContext.RequestServices.GetRequiredService<OpenIddictServices<TUser, TApplication, TAuthorization, TScope, TToken>>();
 
             // Remove the logout request from the distributed cache.

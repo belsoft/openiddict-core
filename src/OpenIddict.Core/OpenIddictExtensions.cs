@@ -8,7 +8,6 @@ using System;
 using System.Linq;
 using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Server;
-using JetBrains.Annotations;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -37,7 +36,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </remarks>
         /// <returns>The <see cref="OpenIddictBuilder"/>.</returns>
         public static OpenIddictBuilder AddOpenIddict<TUser, TRole, TApplication, TAuthorization, TScope, TToken>(
-            [NotNull] this IServiceCollection services)
+            this IServiceCollection services)
             where TUser : class
             where TRole : class
             where TApplication : class
@@ -98,7 +97,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </summary>
         /// <param name="app">The application builder used to register middleware instances.</param>
         /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseOpenIddict([NotNull] this IApplicationBuilder app) {
+        public static IApplicationBuilder UseOpenIddict(this IApplicationBuilder app) {
             if (app == null) {
                 throw new ArgumentNullException(nameof(app));
             }
@@ -166,7 +165,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </summary>
         /// <param name="options">The OpenIddict options.</param>
         /// <returns><c>true</c> if the authorization code flow has been enabled, <c>false</c> otherwise.</returns>
-        public static bool IsAuthorizationCodeFlowEnabled([NotNull] this OpenIddictOptions options) {
+        public static bool IsAuthorizationCodeFlowEnabled(this OpenIddictOptions options) {
             if (options == null) {
                 throw new ArgumentNullException(nameof(options));
             }
@@ -179,7 +178,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </summary>
         /// <param name="options">The OpenIddict options.</param>
         /// <returns><c>true</c> if the client credentials flow has been enabled, <c>false</c> otherwise.</returns>
-        public static bool IsClientCredentialsFlowEnabled([NotNull] this OpenIddictOptions options) {
+        public static bool IsClientCredentialsFlowEnabled(this OpenIddictOptions options) {
             if (options == null) {
                 throw new ArgumentNullException(nameof(options));
             }
@@ -192,7 +191,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </summary>
         /// <param name="options">The OpenIddict options.</param>
         /// <returns><c>true</c> if the implicit flow has been enabled, <c>false</c> otherwise.</returns>
-        public static bool IsImplicitFlowEnabled([NotNull] this OpenIddictOptions options) {
+        public static bool IsImplicitFlowEnabled(this OpenIddictOptions options) {
             if (options == null) {
                 throw new ArgumentNullException(nameof(options));
             }
@@ -205,7 +204,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </summary>
         /// <param name="options">The OpenIddict options.</param>
         /// <returns><c>true</c> if the password flow has been enabled, <c>false</c> otherwise.</returns>
-        public static bool IsPasswordFlowEnabled([NotNull] this OpenIddictOptions options) {
+        public static bool IsPasswordFlowEnabled(this OpenIddictOptions options) {
             if (options == null) {
                 throw new ArgumentNullException(nameof(options));
             }
@@ -218,7 +217,7 @@ namespace Microsoft.AspNetCore.Builder {
         /// </summary>
         /// <param name="options">The OpenIddict options.</param>
         /// <returns><c>true</c> if the refresh token flow has been enabled, <c>false</c> otherwise.</returns>
-        public static bool IsRefreshTokenFlowEnabled([NotNull] this OpenIddictOptions options) {
+        public static bool IsRefreshTokenFlowEnabled(this OpenIddictOptions options) {
             if (options == null) {
                 throw new ArgumentNullException(nameof(options));
             }

@@ -7,7 +7,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,10 +20,10 @@ namespace OpenIddict {
     /// <typeparam name="TToken">The type of the Token entity.</typeparam>
     public class OpenIddictTokenManager<TToken> where TToken : class {
         public OpenIddictTokenManager(
-            [NotNull] IServiceProvider services,
-            [NotNull] IOpenIddictTokenStore<TToken> store,
-            [NotNull] IOptions<IdentityOptions> options,
-            [NotNull] ILogger<OpenIddictTokenManager<TToken>> logger) {
+            IServiceProvider services,
+            IOpenIddictTokenStore<TToken> store,
+            IOptions<IdentityOptions> options,
+            ILogger<OpenIddictTokenManager<TToken>> logger) {
             Context = services?.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
             Logger = logger;
             Options = options.Value;
