@@ -46,13 +46,12 @@ namespace Mvc.Server
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddMvc();
+
             // Register the Identity services.
             services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationDbContext, Guid>()
                 .AddDefaultTokenProviders();
-
-            
-            services.AddMvc();
 
             // Register the OpenIddict services, including the default Entity Framework stores.
             services.AddOpenIddict<ApplicationUser, IdentityRole<Guid>, ApplicationDbContext, Guid>()
@@ -163,6 +162,8 @@ namespace Mvc.Server
             });
 
             app.UseStatusCodePagesWithReExecute("/error");
+
+            app.UseOpenIddict();
 
             app.UseMvcWithDefaultRoute();
 

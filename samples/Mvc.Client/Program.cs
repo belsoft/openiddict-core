@@ -1,21 +1,20 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 
-namespace Mvc.Client {
-    public static class Program {
-        public static void Main(string[] args) {
-            var configuration = new ConfigurationBuilder()
-                .AddEnvironmentVariables()
-                .AddCommandLine(args)
-                .Build();
-
+namespace Mvc.Client
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
             var host = new WebHostBuilder()
-                .ConfigureLogging(options => options.AddConsole())
-                .ConfigureLogging(options => options.AddDebug())
-                .UseConfiguration(configuration)
-                .UseIISIntegration()
                 .UseKestrel()
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
 
