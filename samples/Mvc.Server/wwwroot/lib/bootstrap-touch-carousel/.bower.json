@@ -32,7 +32,7 @@
     "tag": "v0.8.0",
     "commit": "1b8430f0e043f7763a8aea047e9dd76b7ddf4cbf"
   },
-  "_source": "git://github.com/ixisio/bootstrap-touch-carousel.git",
+  "_source": "https://github.com/ixisio/bootstrap-touch-carousel.git",
   "_target": "0.8.0",
   "_originalSource": "bootstrap-touch-carousel"
 }

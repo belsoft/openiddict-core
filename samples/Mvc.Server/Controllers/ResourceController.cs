@@ -1,16 +1,24 @@
-﻿using System.Security.Claims;
-using AspNet.Security.OAuth.Validation;
-using Microsoft.AspNetCore.Authorization;
+﻿using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Mvc.Server.Controllers {
+namespace Mvc.Server.Controllers
+{
     [Route("api")]
-    public class ResourceController : Controller {
+    public class ResourceController : Controller
+    {
         [Authorize(ActiveAuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
         [HttpGet("message")]
-        public IActionResult GetMessage() {
+        public IActionResult GetMessage()
+        {
             var identity = User.Identity as ClaimsIdentity;
-            if (identity == null) {
+            if (identity == null)
+            {
                 return BadRequest();
             }
 

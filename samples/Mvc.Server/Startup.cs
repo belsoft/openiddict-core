@@ -1,33 +1,58 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CryptoHelper;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Mvc.Server.Data;
 using Mvc.Server.Models;
 using Mvc.Server.Services;
 using NWebsec.AspNetCore.Middleware;
 using OpenIddict;
 
-namespace Mvc.Server {
-    public class Startup {
-        public void ConfigureServices(IServiceCollection services) {
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("config.json")
-                .AddEnvironmentVariables()
-                .Build();
+namespace Mvc.Server
+{
+    public class Startup
+    {
+        public Startup(IHostingEnvironment env)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-            services.AddMvc();
+            if (env.IsDevelopment())
+            {
+                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+                builder.AddUserSecrets();
+            }
 
+            builder.AddEnvironmentVariables();
+            Configuration = builder.Build();
+        }
+
+        public IConfigurationRoot Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"]));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Register the Identity services.
             services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationDbContext, Guid>()
                 .AddDefaultTokenProviders();
+
+            
+            services.AddMvc();
 
             // Register the OpenIddict services, including the default Entity Framework stores.
             services.AddOpenIddict<ApplicationUser, IdentityRole<Guid>, ApplicationDbContext, Guid>()
@@ -67,12 +92,27 @@ namespace Mvc.Server {
             //          resource: "Mvc.Server.Certificate.pfx",
             //          password: "OpenIddict");
 
+            // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
         }
 
-        public void Configure(IApplicationBuilder app) {
-            app.UseDeveloperExceptionPage();
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+                app.UseBrowserLink();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
 
             app.UseStaticFiles();
 
@@ -94,12 +134,12 @@ namespace Mvc.Server {
             // });
 
             app.UseCsp(options => options.DefaultSources(directive => directive.Self())
-                .ImageSources(directive => directive.Self()
-                    .CustomSources("*"))
-                .ScriptSources(directive => directive.Self()
-                    .UnsafeInline())
-                .StyleSources(directive => directive.Self()
-                    .UnsafeInline()));
+               .ImageSources(directive => directive.Self()
+                   .CustomSources("*"))
+               .ScriptSources(directive => directive.Self()
+                   .UnsafeInline())
+               .StyleSources(directive => directive.Self()
+                   .UnsafeInline()));
 
             app.UseXContentTypeOptions();
 
@@ -109,28 +149,31 @@ namespace Mvc.Server {
 
             app.UseIdentity();
 
-            app.UseGoogleAuthentication(new GoogleOptions {
+            // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
+            app.UseGoogleAuthentication(new GoogleOptions
+            {
                 ClientId = "560027070069-37ldt4kfuohhu3m495hk2j4pjp92d382.apps.googleusercontent.com",
                 ClientSecret = "n2Q-GEw9RQjzcRbU3qhfTj8f"
             });
 
-            app.UseTwitterAuthentication(new TwitterOptions {
+            app.UseTwitterAuthentication(new TwitterOptions
+            {
                 ConsumerKey = "6XaCTaLbMqfj6ww3zvZ5g",
                 ConsumerSecret = "Il2eFzGIrYhz6BWjYhVXBPQSfZuS4xoHpSSyD9PI"
             });
 
             app.UseStatusCodePagesWithReExecute("/error");
 
-            app.UseOpenIddict();
-
             app.UseMvcWithDefaultRoute();
 
             using (var context = new ApplicationDbContext(
-                app.ApplicationServices.GetRequiredService<DbContextOptions<ApplicationDbContext>>())) {
+                app.ApplicationServices.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
+            {
                 context.Database.EnsureCreated();
 
                 // Add Mvc.Client to the known applications.
-                if (!context.Applications.Any()) {
+                if (!context.Applications.Any())
+                {
                     // Note: when using the introspection middleware, your resource server
                     // MUST be registered as an OAuth2 client and have valid credentials.
                     // 
@@ -141,7 +184,8 @@ namespace Mvc.Server {
                     //     Type = OpenIddictConstants.ClientTypes.Confidential
                     // });
 
-                    context.Applications.Add(new OpenIddictApplication<Guid> {
+                    context.Applications.Add(new OpenIddictApplication<Guid>
+                    {
                         ClientId = "myClient",
                         ClientSecret = Crypto.HashPassword("secret_secret_secret"),
                         DisplayName = "My client application",
@@ -159,7 +203,8 @@ namespace Mvc.Server {
                     // * Scope: openid email profile roles
                     // * Grant type: authorization code
                     // * Request access token locally: yes
-                    context.Applications.Add(new OpenIddictApplication<Guid> {
+                    context.Applications.Add(new OpenIddictApplication<Guid>
+                    {
                         ClientId = "postman",
                         DisplayName = "Postman",
                         RedirectUri = "https://www.getpostman.com/oauth2/callback",
@@ -169,6 +214,7 @@ namespace Mvc.Server {
                     context.SaveChanges();
                 }
             }
+
         }
     }
 }
