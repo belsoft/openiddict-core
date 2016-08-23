@@ -1,8 +1,8 @@
 $nuget = $env:NuGet
 
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
-$sourcesPath = $scriptPath.parent.FullName
-
+$sourcesPath = (get-item $scriptPath ).parent.FullName
+$sourcesPath
 # parse the version number out of package.json
 $bsversion = ((Get-Content $sourcesPath\package.json) -join "`n" | ConvertFrom-Json).version
 
