@@ -1,11 +1,14 @@
 $nuget = $env:NuGet
 
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
-$sourcesPath = (get-item $scriptPath ).parent.FullName
-$sourcesPath
+
+$env:SourcesPath = (get-item $scriptPath ).parent.FullName
+
+$env:SourcesPath
+
 # parse the version number out of package.json
-$bsversion = ((Get-Content $sourcesPath\package.json) -join "`n" | ConvertFrom-Json).version
+$bsversion = ((Get-Content $env:SourcesPath\package.json) -join "`n" | ConvertFrom-Json).version
 
 # create packages
-& $nuget pack $sourcesPath + "\nuget\bootstrap.nuspec" -Verbosity detailed -NonInteractive -NoPackageAnalysis -BasePath $sourcesPath -Version $bsversion
-& $nuget pack $sourcesPath + "\nuget\bootstrap.less.nuspec" -Verbosity detailed -NonInteractive -NoPackageAnalysis -BasePath $sourcesPath -Version $bsversion
+& $nuget pack "nuget\bootstrap.nuspec" -Verbosity detailed -NonInteractive -NoPackageAnalysis -BasePath $env:SourcesPath -Version $bsversion
+& $nuget pack "nuget\bootstrap.less.nuspec" -Verbosity detailed -NonInteractive -NoPackageAnalysis -BasePath $env:SourcesPath -Version $bsversion
