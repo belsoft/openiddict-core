@@ -8,6 +8,9 @@ target/
 .vs/
 .build/
 
+# exclude Bootstrap nuget folder due to incorrect build process in myget.org
+bootstrap/nuget/
+
 # User-specific files
 *.suo
 *.user
