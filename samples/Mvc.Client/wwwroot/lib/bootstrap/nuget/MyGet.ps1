@@ -1,5 +1,5 @@
 $nuget = $env:NuGet
-$sourcesPath = '..'
+$sourcesPath = '.'
 # parse the version number out of package.json
 $bsversion = ((Get-Content $sourcesPath\package.json) -join "`n" | ConvertFrom-Json).version
 
