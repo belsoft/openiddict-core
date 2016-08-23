@@ -5,7 +5,7 @@
     "bootstrap": "3.3.7",
     "bootstrap-touch-carousel": "0.8.0",
     "hammer.js": "2.0.8",
-    "jquery": "2.2.0",
+    "jquery": "2.2.4",
     "jquery-validation":"1.15.1",
     "jquery-validation-unobtrusive": "3.2.6"
   }
