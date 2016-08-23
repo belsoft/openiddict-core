@@ -6,8 +6,8 @@
       "version": "1.0.0",
       "type": "platform"
     },
-    "AspNet.Security.OAuth.Introspection": "1.0.0-alpha3-*",
-    "AspNet.Security.OAuth.Validation": "1.0.0-alpha3-*",
+    "AspNet.Security.OAuth.Introspection": "1.0.0-alpha2-*",
+    "AspNet.Security.OAuth.Validation": "1.0.0-alpha2-*",
     "Microsoft.AspNetCore.Authentication.Google": "1.0.0",
     "Microsoft.AspNetCore.Authentication.Twitter": "1.0.0",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
@@ -49,7 +49,8 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "OpenIddict": { "target": "project" }
+    "OpenIddict": { "target": "project" },
+    "NuGetPackageVerifier": "1.0.0"
   },
 
   "tools": {
